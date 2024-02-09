@@ -10,12 +10,16 @@
 #include "product_parser.h"
 #include "util.h"
 
+//#include "datatstore.h"
+
 using namespace std;
+
 struct ProdNameSorter {
     bool operator()(Product* p1, Product* p2) {
         return (p1->getName() < p2->getName());
     }
 };
+
 void displayProducts(vector<Product*>& hits);
 
 int main(int argc, char* argv[])

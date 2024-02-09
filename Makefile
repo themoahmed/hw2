@@ -24,5 +24,6 @@ util.o: util.cpp util.h
 	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c util.cpp
 
 
+
 clean:
 	rm -f *.o amazon
