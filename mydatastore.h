@@ -19,6 +19,7 @@ class MyDataStore : public DataStore {
         virtual void addUser(User* u) override;
         virtual std::vector<Product *> search(std::vector<std::string>& terms, int type) override;
         virtual void dump(std::ostream& ofile) override;
+        User* getUser(std::string username);
         void addProductToCart(Product*, User*); 
         void viewCart(User*);
         void buyCart(User*); 

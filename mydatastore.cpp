@@ -157,4 +157,14 @@ void MyDataStore::buyCart(User* u){
     } else {
         cout << "No items were purchased." << endl;
     }
+
+}
+
+User* MyDataStore::getUser(string username) {
+    for(User* user : listOfUsers) {
+        if(user->getName() == username) {
+            return user;
+        }
+    }
+    return nullptr; 
 }

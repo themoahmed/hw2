@@ -105,15 +105,59 @@ int main(int argc, char* argv[])
                 done = true;
             }
             else if (cmd == "ADD"){
+                string username;
+                int hitNumber;
 
+                if(ss >> username >> hitNumber){
+                    username = convToLower(username);
+
+                    if(hitNumber < hits.size() && hitNumber >= 0){
+                        Product* currentProduct = hits[hitNumber -1];
+
+                        User* currentUser = ds.getUser(username);
+                        if(currentUser == nullptr) {
+                            cout << "Please try again. Invalid user name entered" << endl;
+                        }else{
+                            ds.addProductToCart(currentProduct, currentUser);
+                        }
+                    }else{
+                        cout << "Invalid Request" << endl;
+                    }
+                }
+                    
+                
             }
 
             else if (cmd == "BUYCART"){
+                string username;
+                bool validUser = false;
+                if (ss >> username) {
+                    username = convToLower(username);
+                    User* currentUser = ds.getUser(username);
 
+                        if(currentUser != nullptr){
+                             ds.buyCart(currentUser);
+                        }
+                        else{
+                            cout << "Invalid User" << endl;
+                        }
+
+                }
             }
 
             else if (cmd == "VIEWCART"){
-                
+                string username;
+                if (ss >> username) {
+                    bool validUser = false;
+                    username = convToLower(username);
+                    User* currentUser = ds.getUser(username);
+
+                    if (currentUser != nullptr){
+                        ds.viewCart(currentUser);
+                    }else{
+                        cout << "Invalid username" << endl;
+                    }
+                }
             }
 	    /* Add support for other commands here */
 
