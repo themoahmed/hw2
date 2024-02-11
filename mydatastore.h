@@ -8,6 +8,7 @@
 #include <string>
 #include <map>
 #include "user.h"
+#include <unordered_map>
 
 class MyDataStore : public DataStore {
     public: 
@@ -16,16 +17,18 @@ class MyDataStore : public DataStore {
 
         virtual void addProduct(Product* p) override;
         virtual void addUser(User* u) override;
-        std::vector<Product *> search(std::vector<std::string>& terms, int type) override;
+        virtual std::vector<Product *> search(std::vector<std::string>& terms, int type) override;
         virtual void dump(std::ostream& ofile) override;
         void addProductToCart(Product*, User*); 
         void viewCart(User*);
         void buyCart(User*); 
 
     private:
-        std::unordered_map<std::string, std::set<Product*>> productsForKeyword;
-        std::map<std::string, User*> users;
-        std::map<User*, std::vector<Product*>> cart; 
+        std::unordered_map<std::string, std::set<Product*>> productsForKeywords;
+        std::vector<User*> listOfUsers;
+        std::vector<Product*> listOfProducts;
+        std::map<User*, std::vector<Product*>> cart;
+
 
 
 };

@@ -104,6 +104,17 @@ int main(int argc, char* argv[])
                 }
                 done = true;
             }
+            else if (cmd == "ADD"){
+
+            }
+
+            else if (cmd == "BUYCART"){
+
+            }
+
+            else if (cmd == "VIEWCART"){
+                
+            }
 	    /* Add support for other commands here */
 
 
