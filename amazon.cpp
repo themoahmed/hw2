@@ -77,20 +77,13 @@ int main(int argc, char* argv[])
         if((ss >> cmd)) {
             if(cmd == "AND") {
                 string term;
-                //vector<string> terms;
-                //set<string> parseterms;
-                // while(ss >> term) {
-                //     term = convToLower(term);
-                    
-                //     parseterms.insert(term);
-                // }
-
+                term = convToLower(term);
                 string emptyString;
                 vector<string> keywords;
                 std::string::size_type index = 0; 
 
                 while (ss >> term){
-
+                        term = convToLower(term);
                         if(isdigit(term[0])){
                             keywords.push_back(term);
                             continue;
@@ -98,8 +91,8 @@ int main(int argc, char* argv[])
                         
                         if(term.length() >= 2){
                                 for (char c : term){
-                                    //Addresses the last character
-
+                                  
+                                     
                                     
                                     if (index == term.length()-1){
 
@@ -138,25 +131,19 @@ int main(int argc, char* argv[])
                         
                     }
 
+
                 hits = ds.search(keywords, 0);
                 displayProducts(hits);
             }
             else if ( cmd == "OR" ) {
                 string term;
-                //vector<string> terms;
-                //set<string> parseterms;
-                // while(ss >> term) {
-                //     term = convToLower(term);
-                    
-                //     parseterms.insert(term);
-                // }
-
+                
                 string emptyString;
                 vector<string> keywords;
                 std::string::size_type index = 0; 
 
                 while (ss >> term){
-
+                        term = convToLower(term);
                         if(isdigit(term[0])){
                             keywords.push_back(term);
                             continue;
@@ -222,18 +209,19 @@ int main(int argc, char* argv[])
 
                 if(ss >> username >> hitNumber){
                     username = convToLower(username);
+                    
 
-                    if(hitNumber < hits.size() && hitNumber >= 0){
+                    if(hitNumber <= hits.size() && hitNumber > 0){
                         Product* currentProduct = hits[hitNumber -1];
 //hits.size is 0
                         User* currentUser = ds.getUser(username);
                         if(currentUser == nullptr) {
-                            cout << "Please try again. Invalid user name entered" << endl;
+                            cout << "Invalid request" << endl;
                         }else{
                             ds.addProductToCart(currentProduct, currentUser);
                         }
                     }else{
-                        cout << "Invalid Request" << endl;
+                        cout << "Invalid request" << endl;
                     }
                 }
                     
@@ -251,7 +239,7 @@ int main(int argc, char* argv[])
                              ds.buyCart(currentUser);
                         }
                         else{
-                            cout << "Invalid User" << endl;
+                            cout << "Invalid username" << endl;
                         }
 
                 }

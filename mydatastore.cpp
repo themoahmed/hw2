@@ -1,6 +1,8 @@
 #include "mydatastore.h"
 #include "user.h"
 #include <iostream>
+#include <iomanip>
+#include "product.h"
 
 
 using namespace std; 
@@ -10,7 +12,13 @@ MyDataStore::MyDataStore() {
 }
 
 MyDataStore::~MyDataStore() {
+    for (std::vector<Product*>::iterator it = listOfProducts.begin(); it != listOfProducts.end(); ++it) {
+        delete *it;
+    }
 
+    for (std::vector<User*>::iterator it = listOfUsers.begin(); it != listOfUsers.end(); ++it) {
+        delete *it;
+    }
 }
 
 void MyDataStore::addProduct(Product* p){
@@ -37,11 +45,10 @@ vector<Product*> MyDataStore::search(vector<string>& terms, int type){
     set<Product*> results;
     set<Product*> andSet1;
     
-    //And is 0 
-    //or is 1
+  
     string firstKeyword = terms[0];
     andSet1 = productsForKeywords[firstKeyword];
-    //And Search
+
     if (type == 1){
 
         for(size_t i = 0; i<terms.size(); i++ ){
@@ -77,7 +84,19 @@ vector<Product*> MyDataStore::search(vector<string>& terms, int type){
 }
 
 void MyDataStore::dump(ostream& ofile) {
-    delete &ofile;
+    ofile << "<products>\n";
+    for (Product* product : listOfProducts) {
+        product->dump(ofile);
+    }
+    ofile << "</products>\n"; 
+
+    ofile << "<users>\n";
+    for (User* user : listOfUsers) {
+        user->dump(ofile);
+    }
+    ofile << "</users>\n"; 
+    ofile.flush(); 
+
 }
 
 void MyDataStore::addProductToCart(Product* p, User* u){
@@ -115,10 +134,10 @@ void MyDataStore::viewCart(User* u){
     }
 
     // Iterate through the products in the cart and display them
-    std::cout << "Cart contents for user: " << u->getName() << endl;
     for (size_t i = 0; i < userCart.size(); ++i) {
-        std::cout << i + 1 << ". "; // Display item number starting from 1
-        std::cout << userCart[i]->displayString() << endl; // Assuming Product has a method displayString() for a concise product description
+        std::cout << "Item " << i + 1 << endl; // Display item number starting from 1
+        std::cout << userCart[i]->displayString() << endl;
+        std::cout << endl; // Assuming Product has a method displayString() for a concise product description
     }
 }
 

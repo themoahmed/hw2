@@ -18,6 +18,7 @@ std::string convToLower(std::string src)
 std::set<std::string> parseStringToWords(string rawWords)
 {
     set<string> keywords;
+    rawWords = convToLower(rawWords);
     istringstream iss(rawWords);
     string word;
     string emptyString;

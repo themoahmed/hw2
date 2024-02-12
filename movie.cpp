@@ -2,6 +2,7 @@
 #include <iomanip>
 #include "movie.h"
 #include "util.h"
+using namespace std;
 
 Movie::Movie(const std::string category, const std::string name, double price, int qty, std::string genre, std::string rating):
     Product(category, name, price, qty),
@@ -13,9 +14,11 @@ Movie::Movie(const std::string category, const std::string name, double price, i
 Movie::~Movie() {}
 
 std::set<std::string> Movie::keywords() const {
-    std::set<std::string> keyWords = parseStringToWords(name_);
-    keyWords.insert(genre_);
-    return keyWords;
+
+    string genreLower = name_ + " " + genre_;
+    std::set<std::string> keywords = parseStringToWords(genreLower);
+    
+    return keywords;
 }
 
 std::string Movie::displayString() const {
