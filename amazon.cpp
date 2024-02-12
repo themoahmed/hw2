@@ -75,24 +75,136 @@ int main(int argc, char* argv[])
         stringstream ss(line);
         string cmd;
         if((ss >> cmd)) {
-            if( cmd == "AND") {
+            if(cmd == "AND") {
                 string term;
-                vector<string> terms;
-                while(ss >> term) {
-                    term = convToLower(term);
-                    terms.push_back(term);
-                }
-                hits = ds.search(terms, 0);
+                //vector<string> terms;
+                //set<string> parseterms;
+                // while(ss >> term) {
+                //     term = convToLower(term);
+                    
+                //     parseterms.insert(term);
+                // }
+
+                string emptyString;
+                vector<string> keywords;
+                std::string::size_type index = 0; 
+
+                while (ss >> term){
+
+                        if(isdigit(term[0])){
+                            keywords.push_back(term);
+                            continue;
+                        }
+                        
+                        if(term.length() >= 2){
+                                for (char c : term){
+                                    //Addresses the last character
+
+                                    
+                                    if (index == term.length()-1){
+
+                                        if (!ispunct(c)){
+                                            emptyString += c; 
+                                        }
+                                        //if the word is more the 2, insert
+                                        if (emptyString.length() >= 2){
+
+                                            keywords.push_back(emptyString);
+                                            
+                                        }
+                                        //reset for next word
+                                        index = 0;
+                                        emptyString = "";
+                                        continue;
+                                    }
+
+                                    //If you reach a punctuation 
+                                    if (ispunct(c)){
+
+                                        if (emptyString.length() >= 2){
+                                            keywords.push_back(emptyString);
+                                        } 
+                                        emptyString = "";
+                                        index++;
+                                        continue;
+                                    }
+                                        emptyString += tolower(c);
+                                        index++;
+                                        continue;
+                                    
+                                
+                            }
+                        }
+                        
+                    }
+
+                hits = ds.search(keywords, 0);
                 displayProducts(hits);
             }
             else if ( cmd == "OR" ) {
                 string term;
-                vector<string> terms;
-                while(ss >> term) {
-                    term = convToLower(term);
-                    terms.push_back(term);
-                }
-                hits = ds.search(terms, 1);
+                //vector<string> terms;
+                //set<string> parseterms;
+                // while(ss >> term) {
+                //     term = convToLower(term);
+                    
+                //     parseterms.insert(term);
+                // }
+
+                string emptyString;
+                vector<string> keywords;
+                std::string::size_type index = 0; 
+
+                while (ss >> term){
+
+                        if(isdigit(term[0])){
+                            keywords.push_back(term);
+                            continue;
+                        }
+                        
+                        if(term.length() >= 2){
+                                for (char c : term){
+                                    //Addresses the last character
+
+                                    
+                                    if (index == term.length()-1){
+
+                                        if (!ispunct(c)){
+                                            emptyString += c; 
+                                        }
+                                        //if the word is more the 2, insert
+                                        if (emptyString.length() >= 2){
+
+                                            keywords.push_back(emptyString);
+                                            
+                                        }
+                                        //reset for next word
+                                        index = 0;
+                                        emptyString = "";
+                                        continue;
+                                    }
+
+                                    //If you reach a punctuation 
+                                    if (ispunct(c)){
+
+                                        if (emptyString.length() >= 2){
+                                            keywords.push_back(emptyString);
+                                        } 
+                                        emptyString = "";
+                                        index++;
+                                        continue;
+                                    }
+                                        emptyString += tolower(c);
+                                        index++;
+                                        continue;
+                                    
+                                
+                            }
+                        }
+                        
+                    }
+
+                hits = ds.search(keywords, 1);
                 displayProducts(hits);
             }
             else if ( cmd == "QUIT") {
@@ -113,7 +225,7 @@ int main(int argc, char* argv[])
 
                     if(hitNumber < hits.size() && hitNumber >= 0){
                         Product* currentProduct = hits[hitNumber -1];
-
+//hits.size is 0
                         User* currentUser = ds.getUser(username);
                         if(currentUser == nullptr) {
                             cout << "Please try again. Invalid user name entered" << endl;

@@ -8,9 +8,11 @@ Book::Book(const std::string category, const std::string name, double price, int
     isbn_(isbn),
     author_(author)
 
-{
+{}
 
-}
+
+Book::~Book(){}
+
 
 std::set<std::string> Book::keywords() const {
     std::set<std::string> keyWords = parseStringToWords(name_);

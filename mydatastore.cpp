@@ -42,13 +42,12 @@ vector<Product*> MyDataStore::search(vector<string>& terms, int type){
     string firstKeyword = terms[0];
     andSet1 = productsForKeywords[firstKeyword];
     //And Search
-    if (type == 0){
+    if (type == 1){
 
         for(size_t i = 0; i<terms.size(); i++ ){
             string keyword = terms[i];
             for(set<Product*>::iterator it = productsForKeywords[keyword].begin(); it != productsForKeywords[keyword].end(); it++ ){
-                results.insert(*it);
-                ++it;
+                results.insert(*it);   
             }
         }
 
@@ -63,7 +62,7 @@ vector<Product*> MyDataStore::search(vector<string>& terms, int type){
             string keyword = terms[j];
             set<Product*> set2 = productsForKeywords[keyword]; 
             andSet1 = setIntersection(andSet1, set2);
-            j++;
+          
 
             
         }
