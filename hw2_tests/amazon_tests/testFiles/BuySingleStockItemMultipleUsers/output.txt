@@ -12,24 +12,26 @@ Menu:
 
 Enter command: 
 Hit   1
-Hidden Figures DVD         
+Hidden Figures DVD
 Genre: Drama Rating: PG
-17.99   1 left.
+17.990000 1 left.
 
 
 Enter command: 
 
 Enter command: 
 Hit   1
-Hidden Figures DVD         
+Hidden Figures DVD
 Genre: Drama Rating: PG
-17.99   1 left.
+17.990000 1 left.
 
 
 Enter command: 
 
 Enter command: 
+Purchase successful. Total cost: 17.99
 
 Enter command: 
+No items were purchased.
 
 Enter command: 
